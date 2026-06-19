@@ -1,0 +1,37 @@
+name: Bug Report
+description: Report a bug in lastcall
+title: '[Bug]: '
+labels: ['bug']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal code to reproduce the issue
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: lastcall version
+    validations:
+      required: true
+  - type: input
+    id: runtime
+    attributes:
+      label: Node.js / Bun version
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+    validations:
+      required: true

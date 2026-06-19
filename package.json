@@ -1,0 +1,101 @@
+{
+  "name": "lastcall",
+  "version": "0.1.0",
+  "description": "Graceful process lifecycle management for Node.js and Bun",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:log": "cross-env LASTCALL_TEST_LOG=1 vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:coverage:log": "cross-env LASTCALL_TEST_LOG=1 vitest run --coverage",
+    "test:signal-os": "tsx test/fixtures/run-os-signal.ts",
+    "test:integration": "vitest run test/integration",
+    "docs:dev": "vitepress dev website",
+    "docs:build": "vitepress build website",
+    "docs:preview": "vitepress preview website",
+    "lint": "eslint src test examples",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "bench": "node --import tsx bench/shutdown.bench.ts",
+    "ci": "npm run lint && npm run format:check && npm run typecheck && npm run test:coverage && npm run docs:build",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "keywords": [
+    "graceful-shutdown",
+    "shutdown",
+    "sigterm",
+    "sigint",
+    "lifecycle",
+    "process",
+    "kubernetes",
+    "docker",
+    "http-server",
+    "lastcall",
+    "graceful-exit",
+    "express",
+    "fastify",
+    "hono",
+    "pm2",
+    "health-check",
+    "abortsignal"
+  ],
+  "author": "sakurablush",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@10.9.2",
+  "funding": [
+    "https://github.com/sakurablush/lastcall#sustain-development-optional"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@vitest/coverage-v8": "^3.1.4",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.27.0",
+    "prettier": "^3.5.3",
+    "tsup": "^8.5.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1",
+    "vitest": "^3.1.4",
+    "vitepress": "^1.6.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakurablush/lastcall.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sakurablush/lastcall/issues"
+  },
+  "homepage": "https://sakurablush.github.io/lastcall/",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

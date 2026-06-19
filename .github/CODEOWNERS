@@ -1,0 +1,14 @@
+# CODEOWNERS — automatically requests reviews from listed owners when a PR
+# touches matching paths.
+
+*                           @sakurablush
+
+/.github/                   @sakurablush
+SECURITY.md                 @sakurablush
+docs/security-policy.md     @sakurablush
+
+/src/                       @sakurablush
+/src/index.ts               @sakurablush
+
+/.cursor/skills/            @sakurablush
+/.cursor/rules/             @sakurablush

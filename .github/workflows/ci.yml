@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runtime: [node-18, node-20, node-22, bun]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        if: startsWith(matrix.runtime, 'node')
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.runtime == 'node-18' && '18' || matrix.runtime == 'node-20' && '20' || '22' }}
+          cache: npm
+
+      - name: Setup Bun
+        if: matrix.runtime == 'bun'
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Coverage
+        if: matrix.runtime == 'node-22'
+        run: npm run test:coverage
+
+      - name: Build documentation
+        if: matrix.runtime == 'node-22'
+        env:
+          VITEPRESS_BASE: /${{ github.event.repository.name }}/
+        run: npm run docs:build
+
+      - name: Check bundle size
+        if: matrix.runtime == 'node-22'
+        run: |
+          GZIP_SIZE=$(gzip -c dist/index.js | wc -c)
+          echo "Gzipped ESM size: ${GZIP_SIZE} bytes"
+          if [ "$GZIP_SIZE" -gt 15360 ]; then
+            echo "Bundle exceeds 15KB gzipped limit"
+            exit 1
+          fi

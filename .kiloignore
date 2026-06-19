@@ -1,0 +1,50 @@
+﻿# =============================================================================
+# .kiloignore — Kilo AI indexing exclusions (lastcall)
+# =============================================================================
+# Mirrors .cursorignore for consistent agent context across tools.
+
+node_modules/
+dist/
+coverage/
+website/.vitepress/dist/
+website/.vitepress/cache/
+website/.vitepress/.temp/
+.git/
+
+.kilo/
+
+.cursor/plans/
+.kilo/plans/
+.claude/plans/
+**/plans/
+**/plan.md
+**/plans.md
+**/*-plan.md
+**/*-plans.md
+**/plan-*.md
+**/plans-*.md
+**/EXECUTION_PLAN.md
+**/execution-plan.md
+
+.playwright-mcp/
+
+*.log
+*.tmp
+
+.env
+.env.local
+.env.*.local
+
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+*.map
+*.tsbuildinfo
+.eslintcache
+.prettiercache
+
+.cursorignore
