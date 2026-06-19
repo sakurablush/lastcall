@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Lint · Typecheck · Test · Build · Docs · Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Align npm with packageManager
+        run: npm install -g npm@11.4.2
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Lint · format · typecheck · test · audit
+        run: npm run ci
+
+      - name: Build library
+        run: npm run build
+
+      - name: Build documentation
+        env:
+          VITEPRESS_BASE: /${{ github.event.repository.name }}/
+        run: npm run docs:build
+
+      - name: Verify npm package contents
+        run: npm pack --dry-run
+
+      - name: Check bundle size
+        run: |
+          GZIP_SIZE=$(gzip -c dist/index.js | wc -c)
+          echo "Gzipped ESM size: ${GZIP_SIZE} bytes"
+          if [ "$GZIP_SIZE" -gt 15360 ]; then
+            echo "Bundle exceeds 15KB gzipped limit"
+            exit 1
+          fi
+
+  bun:
+    name: Bun compatibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Align npm with packageManager
+        run: npm install -g npm@11.4.2
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build

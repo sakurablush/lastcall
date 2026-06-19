@@ -1,0 +1,53 @@
+---
+description: Mandatory CHANGELOG and semver decisions when finishing lastcall library, example, or release file changes.
+globs: src/**,examples/**,test/**,CHANGELOG.md,package.json,package-lock.json,README.md
+alwaysApply: false
+---
+
+# lastcall — Version & CHANGELOG (MANDATORY)
+
+Auto-attaches when editing matched library or release files. Invoke manually with **@lastcall-release-changelog** if needed.
+
+Before marking **any** implementation task complete, decide changelog and version impact. Do not skip this step.
+
+Reference: `CHANGELOG.md` (Keep a Changelog + SemVer) · `docs/DEPLOYMENT.md` · publish workflow `.github/workflows/publish.yml`
+
+## 1. Changelog entry required?
+
+**YES** — add bullets under `## [Unreleased]`:
+
+- Public API changes (`src/index.ts`, exported types)
+- Runtime behavior (shutdown phases, signal handling, HTTP drain, timeouts)
+- Bug fixes and security fixes
+- Deprecations, removals, or breaking changes
+- User-facing README or npm metadata changes
+
+**NO** — only when there is zero consumer impact: internal refactors, maintainer-only CI, comments, ephemeral `.cursor/plans/`.
+
+When unsure → **add an entry**.
+
+Use `### Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, or `Security`. Write user-facing bullets, not commit messages.
+
+## 2. Version bump now or defer?
+
+| Situation | Action |
+| --------- | ------ |
+| Normal feature/fix PR | `[Unreleased]` entry only — **do not** bump `package.json` |
+| User asks to release, tag, or publish | Bump semver, date the section, tag `vX.Y.Z` |
+| Breaking public API (when releasing) | **MAJOR** (`X.0.0`) |
+| New backward-compatible feature (when releasing) | **MINOR** (`0.X.0`) while on `0.y.z` |
+| Bug or security fix, no API break (when releasing) | **PATCH** (`0.0.X`) |
+
+Read current version from `package.json` — never guess.
+
+On release: `package.json` version must match the new `## [X.Y.Z] - YYYY-MM-DD` heading.
+
+## 3. Final output (required)
+
+State explicitly:
+
+- **Changelog:** yes/no — category if yes
+- **Version bump:** deferred / bumped to `X.Y.Z`
+- **Files touched:** e.g. `CHANGELOG.md`, `package.json`
+
+**Workflow detail:** `.cursor/skills/lastcall-release-versioning/SKILL.md`

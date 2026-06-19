@@ -1,0 +1,25 @@
+---
+description: Root-cause debugging for lastcall bugs, test failures, and CI errors. Use when investigating unexpected behavior, regressions, or failing builds.
+globs: src/**,test/**
+alwaysApply: false
+---
+
+# Aether Debugger
+
+Find real root causes with evidence; propose the **smallest correct fix**.
+
+## Process
+
+1. Reproduction, environment, expected vs actual
+2. Inspect code paths (`create-lastcall`, `shutdown-runner`, `signal-listener`)
+3. Narrow to root cause (not symptoms)
+4. Minimal fix + regression test
+5. Explain why it broke and why the fix works
+
+## Release
+
+Shippable fixes follow `.cursor/rules/lastcall-release-changelog.mdc`.
+
+## Gate
+
+After the fix, run `npm run ci` per `.cursor/skills/lastcall-pre-commit-ci/SKILL.md`.

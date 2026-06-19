@@ -1,0 +1,31 @@
+---
+description: Run npm run ci before git commit, PR readiness, or fixing CI failures in lastcall. Use when implementing code, editing Cursor rules/skills, committing, or marking work merge-ready.
+globs: src/**,test/**,examples/**,.cursor/skills/**/*.md
+alwaysApply: false
+---
+
+# Pre-Commit Quality Gate
+
+Before **any** `git commit` or merge-ready sign-off, run the full gate and fix all failures.
+
+**Canonical command:** `npm run ci`
+
+**Fallback:** `npm run lint && npm run format:check && npm run typecheck && npm run test:coverage && npm run audit`
+
+**When docs changed:** also run `npm run docs:build`.
+
+## Requirements
+
+1. Re-run until exit code **0**. Never commit on a red gate.
+2. Stage lint/format fixes in the same commit as the change they belong to.
+3. Unit tests alone are **not** sufficient — ESLint, Prettier, and coverage thresholds must pass.
+4. After `docs/` or `website/` edits, run `npm run docs:build` before merge (included in CI workflow, not in `npm run ci`).
+
+## Repo pitfalls
+
+- Run `npm run lint` on touched `src/`, `test/`, `examples/` files; do not guess ESLint/Prettier formatting.
+- **`.cursor/skills/**/*.md`** is included in `format:check`. After editing skills, run `npm run format` or full `npm run ci`.
+- Coverage thresholds are enforced in `vitest.config.ts` (100% lines/functions/statements, 99% branches).
+- After `docs/` or `website/` edits, run `npm run docs:build` — CI workflow runs it; local `npm run ci` does not.
+
+**Workflow detail:** `.cursor/skills/lastcall-pre-commit-ci/SKILL.md`

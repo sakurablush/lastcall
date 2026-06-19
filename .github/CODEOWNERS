@@ -1,0 +1,20 @@
+# CODEOWNERS — automatically requests reviews from listed owners when a PR
+# touches matching paths. Works as a review-request signal on all GitHub plans.
+
+# Default owner for the repository.
+*                           @sakurablush
+
+# CI/CD and automation — changes can break merges and deploys.
+/.github/                   @sakurablush
+
+# Security policy and vulnerability reporting.
+SECURITY.md                 @sakurablush
+docs/security-policy.md     @sakurablush
+
+# Public API surface and published package entrypoints.
+/src/                       @sakurablush
+/src/index.ts               @sakurablush
+
+# Agent skills and rules (shared contributor tooling).
+/.cursor/skills/            @sakurablush
+/.cursor/rules/             @sakurablush

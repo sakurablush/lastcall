@@ -1,0 +1,53 @@
+# Dependabot — npm dependency updates (lastcall)
+#
+# Grouped PRs are verified by .github/workflows/ci.yml (merge gate).
+# See docs/contributing/ci-and-automation.md.
+
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: UTC
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: deps
+    labels:
+      - dependencies
+      - automated
+    ignore:
+      # @types/node major tracks Node major; CI uses Node 22 — stay on 22.x until CI bumps.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+    groups:
+      testing:
+        applies-to: version-updates
+        patterns:
+          - vitest*
+          - '@vitest/*'
+      typescript-and-build:
+        applies-to: version-updates
+        patterns:
+          - typescript
+          - tsup
+          - tsx
+          - esbuild
+      linting-and-formatting:
+        applies-to: version-updates
+        patterns:
+          - eslint*
+          - '@eslint/*'
+          - prettier*
+          - typescript-eslint*
+      docs:
+        applies-to: version-updates
+        patterns:
+          - vitepress
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - '*'

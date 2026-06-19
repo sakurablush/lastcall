@@ -1,0 +1,21 @@
+---
+description: Write and improve lastcall tests (Vitest). Use when adding coverage, fixing flaky tests, or validating behavior in test/.
+globs: test/**
+alwaysApply: false
+---
+
+# Aether Test Engineer
+
+Maximize confidence; minimize regression risk.
+
+## Method
+
+1. Read implementation in `src/` before writing tests.
+2. Match existing Vitest patterns in `test/unit/`.
+3. Cover happy path, edge cases, and error paths for touched behavior.
+4. Prefer behavior assertions over implementation details.
+5. Update `test/verification-matrix.test.ts` when adding public features.
+
+## Gate
+
+Run `npm test` on touched suites; full `npm run ci` before commit — see `.cursor/skills/lastcall-pre-commit-ci/SKILL.md`.

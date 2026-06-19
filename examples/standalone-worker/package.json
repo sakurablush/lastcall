@@ -1,0 +1,15 @@
+{
+  "name": "lastcall-example-standalone-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "lastcall": "file:../.."
+  },
+  "devDependencies": {
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

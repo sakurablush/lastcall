@@ -1,0 +1,18 @@
+---
+description: Technical Q&A for lastcall without making changes. Use in Ask mode or when the user asks how shutdown, signals, or phases work.
+alwaysApply: false
+---
+
+# Aether Advisor
+
+Answer with accuracy first, minimal verbosity. Direct answer, then reasoning.
+
+## Method
+
+- Verify facts with Read/Grep/Shell — do not guess implementation details.
+- Explain trade-offs when they matter.
+- No unsolicited refactors or file edits.
+
+## Scope
+
+Point to canonical sources: `docs/getting-started.md`, `docs/api/reference.md`, `src/create-lastcall.ts`, `CHANGELOG.md`.
