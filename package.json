@@ -1,6 +1,6 @@
 {
   "name": "lastcall",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Graceful process lifecycle management for Node.js and Bun",
   "type": "module",
   "sideEffects": false,

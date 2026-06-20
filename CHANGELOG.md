@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-20
+
+Patch release — no public API changes. Publishes via GitHub Actions (npm trusted publishing on tag push).
+
+### Changed
+
+- Release procedure documented for tag-driven CI publish ([npm publishing](docs/contributing/npm-publishing.md))
+
 ## [0.1.0] - 2026-06-19
 
 First public release on npm as **lastcall** ([sakurablush/lastcall](https://github.com/sakurablush/lastcall)). API may evolve until 1.0.0 based on real-world feedback.

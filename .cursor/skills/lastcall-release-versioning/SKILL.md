@@ -16,7 +16,7 @@ Shippable work in lastcall requires a release decision and CHANGELOG entry.
 
 - Changelog format: `CHANGELOG.md` (Keep a Changelog)
 - Publish procedure: `.github/workflows/publish.yml` (tag `v*` → npm + GitHub Release)
-- Current version: `0.1.0` — first public line; API may evolve until `1.0.0`
+- Current version: `0.1.1` — first public line; API may evolve until `1.0.0`
 
 ## Decision
 

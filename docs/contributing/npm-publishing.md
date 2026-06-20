@@ -34,7 +34,7 @@ npm login
 bash scripts/publish.sh   # Windows: .\scripts\publish.ps1
 ```
 
-Then complete **Trusted publisher setup** above. From **`0.2.0` onward**, CI handles npm + GitHub Release.
+Then complete **Trusted publisher setup** above. From **`0.1.1` onward**, push a `v*` tag and CI handles npm + GitHub Release.
 
 ## Release procedure (maintainers)
 
